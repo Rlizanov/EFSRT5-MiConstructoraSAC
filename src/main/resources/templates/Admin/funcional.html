@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Analistas Funcionales</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #6a0dad, #9d4edd);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.dropbtn {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 220px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 15px;
+    text-decoration: none;
+    display: block;
+    transition: 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: #9d4edd;
+    color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.logout {
+    color: #ffd60a;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.banner {
+    height: 280px;
+    border-radius: 20px;
+    margin: 30px 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 60px;
+    background: 
+        linear-gradient(to right, rgba(0,0,0,0.65), rgba(0,0,0,0.2)),
+        url('https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1600');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+}
+
+.banner-content h1::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #9d4edd;
+    margin-top: 12px;
+    border-radius: 5px;
+}
+
+.banner-content p {
+    margin-top: 12px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.container {
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    color: #333;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #7b2cbf;
+    font-size: 18px;
+}
+
+.card p {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+/* SOLO CAMBIO AQUÍ */
+.botones {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.editar {
+    background-color: #28a745;
+}
+
+.editar:hover {
+    background-color: #7b2cbf;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        Sistema Web de Gestión de 
+        Empleados – Mi Constructora S.A.C
+    </div>
+
+    <div class="menu">
+        <div class="dropdown">
+            <button class="dropbtn">Trabajos ▾</button>
+            <div class="dropdown-content">
+                <a th:href="@{/empleados}">Empleado</a>
+                <a th:href="@{/analistas}">Analista Programador</a>
+                <a th:href="@{/ingenieros}">Ingeniero Civil</a>
+                <a th:href="@{/funcionales}">Analista Funcional</a>
+                <a th:href="@{/administrador}">Administrador</a>
+                <a th:href="@{/jefe_proyectos}">Jefe de Proyectos</a>
+            </div>
+        </div>
+
+        <a th:href="@{/login}" class="logout">Cerrar Sesión</a>
+    </div>
+</div>
+
+<header class="banner">
+    <div class="banner-content">
+        <h1>📊 Gestión de Análisis Funcional</h1>
+        <p>Levantamiento de Requerimientos • Procesos de Negocio • Documentación Funcional</p>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="card" th:each="f : ${listaFuncional}">
+        
+        <h3>ID Funcional: <span th:text="${f.idempleado}"></span></h3>
+
+        <p><strong>Nombre:</strong>
+            <span th:text="${f.nomempleado}"></span>
+        </p>
+
+        <p><strong>Área:</strong>
+            <span th:text="${f.area}"></span>
+        </p>
+
+        <p><strong>Proceso:</strong>
+            <span th:text="${f.proceso}"></span>
+        </p>
+
+        <p><strong>Herramienta:</strong>
+            <span th:text="${f.herramienta}"></span>
+        </p>
+
+        <div class="botones">
+            <a th:href="@{/funcionales/editar/{id}(id=${f.idempleado})}"
+               class="btn editar">
+               Editar
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

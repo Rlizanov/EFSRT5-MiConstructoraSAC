@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Administrador</title>
+    <meta charset="UTF-8">
+
+	<style>
+	:root{
+	    --naranja:#ff7a00;
+	    --naranja-oscuro:#e56f00;
+	    --gris-fondo:#f4f6f9;
+	    --gris-card:#ffffff;
+	    --texto:#333;
+	}
+
+	body{
+	    font-family:'Segoe UI',sans-serif;
+	    margin:0;
+	    background:var(--gris-fondo);
+	    color:var(--texto);
+	}
+
+	header{
+	    background:linear-gradient(90deg,var(--naranja),var(--naranja-oscuro));
+	    color:white;
+	    padding:18px 40px;
+	    display:flex;
+	    justify-content:space-between;
+	    align-items:center;
+	    box-shadow:0 4px 20px rgba(0,0,0,0.15);
+	}
+
+	header h2{
+	    margin:0;
+	    font-weight:600;
+	    letter-spacing:1px;
+	}
+
+	.nav-right{
+	    display:flex;
+	    align-items:center;
+	    gap:25px;
+	}
+
+	.dropdown button{
+	    background:none;
+	    border:none;
+	    color:white;
+	    font-weight:600;
+	    font-size:15px;
+	    cursor:pointer;
+	}
+
+	.dropdown-content{
+	    display:none;
+	    position:absolute;
+	    background:white;
+	    min-width:220px;
+	    border-radius:12px;
+	    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+	    overflow:hidden;
+	}
+
+	.dropdown-content a{
+	    padding:12px 15px;
+	    display:block;
+	    text-decoration:none;
+	    color:#333;
+	    transition:0.2s;
+	}
+
+	.dropdown-content a:hover{
+	    background:var(--naranja);
+	    color:white;
+	}
+
+	.dropdown:hover .dropdown-content{
+	    display:block;
+	}
+
+	.cerrar{
+	    color:white;
+	    font-weight:600;
+	    text-decoration:none;
+	}
+
+	.container{
+	    display:flex;
+	    padding:30px 40px;
+	    gap:30px;
+	}
+
+	.left{ width:32%; }
+	.right{ width:68%; }
+
+	.card{
+	    background:var(--gris-card);
+	    padding:25px;
+	    border-radius:18px;
+	    margin-bottom:25px;
+	    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+	    transition:0.3s;
+	}
+
+	.card:hover{
+	    transform:translateY(-4px);
+	    box-shadow:0 12px 30px rgba(0,0,0,0.12);
+	}
+
+	.card h3{
+	    margin-top:0;
+	    color:var(--naranja);
+	    font-weight:600;
+	}
+
+	.split{
+	    display:flex;
+	    gap:20px;
+	}
+
+	.split div{
+	    flex:1;
+	}
+
+	input, select{
+	    width:100%;
+	    padding:10px 12px;
+	    margin-bottom:14px;
+	    border-radius:10px;
+	    border:1px solid #ddd;
+	    font-size:14px;
+	    transition:0.2s;
+	}
+
+	input:focus, select:focus{
+	    border:1px solid var(--naranja);
+	    outline:none;
+	    box-shadow:0 0 0 3px rgba(255,122,0,0.2);
+	}
+
+	button{
+	    background:linear-gradient(45deg,var(--naranja),var(--naranja-oscuro));
+	    border:none;
+	    padding:10px 18px;
+	    border-radius:10px;
+	    color:white;
+	    font-weight:600;
+	    cursor:pointer;
+	    transition:0.3s;
+	}
+
+	button:hover{
+	    transform:scale(1.05);
+	}
+
+	table{
+	    width:100%;
+	    border-collapse:collapse;
+	    margin-top:10px;
+	    overflow:hidden;
+	    border-radius:12px;
+	}
+
+	table th{
+	    background:var(--naranja);
+	    color:white;
+	    padding:12px;
+	    font-weight:600;
+	    text-align:left;
+	}
+
+	table td{
+	    padding:12px;
+	    border-bottom:1px solid #eee;
+	}
+
+	table tr:hover{
+	    background:#fff5ec;
+	}
+
+	ul{
+	    padding-left:18px;
+	}
+
+	ul li{
+	    margin-bottom:6px;
+	}
+	</style>
+	
+</head>
+
+<body>
+
+<header>
+<h2>Panel Administrador</h2>
+
+<div class="nav-right">
+<div class="dropdown">
+<button>Trabajos ▾</button>
+<div class="dropdown-content">
+<li><a href="/empleados">Empleado</a></li>
+<li><a href="/analistas">Analista Programador</a></li>
+<li><a href="/ingenieros">Ingeniero Civil</a></li>
+<li><a href="/funcionales">Analista Funcional</a></li>
+<li><a href="/administrador">Administrador</a></li>
+<li><a href="/jefes">Jefe de Proyectos</a></li>
+</div>
+</div>
+<a th:href="@{/login}" class="cerrar">Cerrar Sesión</a>
+</div>
+</header>
+
+<div class="container">
+
+<div class="left">
+
+<div class="card">
+<h3>Unidades de Materiales</h3>
+
+<div class="split">
+
+<div>
+<ul id="listaMateriales"></ul>
+<button onclick="eliminarTodo()">Eliminar Todo</button>
+</div>
+
+<div>
+<b>Ubicación Seleccionada</b>
+<p id="ubicacionActual">---</p>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<h3>Total Materiales</h3>
+
+<div class="split">
+
+<div>
+<p>S/ <span id="totalMateriales">0</span></p>
+</div>
+
+<div>
+<b>Costo Total Acumulado</b>
+<p>S/ <span id="granTotal">0</span></p>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<h3>Materiales Registrados</h3>
+<table>
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Costo</th>
+</tr>
+<tr th:each="m : ${materiales}">
+<td th:text="${m.idmaterial}"></td>
+<td th:text="${m.nombrematerial}"></td>
+<td th:text="${m.costounitario}"></td>
+</tr>
+</table>
+</div>
+
+</div>
+
+<div class="right">
+
+<div class="card">
+<h3>Editar Materiales</h3>
+
+<label>Ubicación del Lugar:</label>
+<select id="ubicacionSelect" onchange="guardarUbicacion()">
+<option value="">Seleccione</option>
+<option th:each="obra : ${obras}"
+        th:value="${obra.ubicacion}"
+        th:text="${obra.ubicacion}">
+</option>
+</select>
+
+<label>Seleccionar Material:</label>
+<select id="materialSelect" onchange="cargarMaterial()">
+<option value="">Seleccione</option>
+<option th:each="material : ${materiales}"
+        th:data-costo="${material.costounitario}"
+        th:data-nombre="${material.nombrematerial}"
+        th:text="${material.nombrematerial}">
+</option>
+</select>
+
+<label>Costo Unitario:</label>
+<input type="text" id="costoUnitario" readonly>
+
+<label>Cantidad:</label>
+<input type="number" id="cantidad">
+
+<button type="button" onclick="agregarMaterial()">Agregar</button>
+</div>
+
+<div class="card">
+<h3>Editar Sueldos</h3>
+<form th:action="@{/actualizar-sueldo}" method="post">
+<select id="trabajadorSelect" name="trabajo" onchange="cargarSueldo()">
+<option value="">Seleccione</option>
+<option th:each="t : ${trabajadores}"
+        th:value="${t.trabajo}"
+        th:data-sueldo="${t.sueldo}"
+        th:text="${t.trabajo}">
+</option>
+</select>
+
+<label>Sueldo:</label>
+<input type="number" id="nuevoSueldo" name="sueldo">
+<button type="submit">Guardar Sueldo</button>
+</form>
+</div>
+
+</div>
+</div>
+
+<script>
+
+let granTotal=0;
+
+window.onload=function(){
+    let data=JSON.parse(localStorage.getItem("materialesGuardados"))||[];
+    granTotal=parseFloat(localStorage.getItem("granTotal"))||0;
+    document.getElementById("granTotal").innerText=granTotal.toFixed(2);
+
+    data.forEach(x=>{
+        let li=document.createElement("li");
+        li.innerText=x;
+        document.getElementById("listaMateriales").appendChild(li);
+    });
+
+    document.getElementById("ubicacionActual").innerText=
+        localStorage.getItem("ubicacion")||"---";
+}
+
+function guardarUbicacion(){
+    let u=document.getElementById("ubicacionSelect").value;
+    localStorage.setItem("ubicacion",u);
+    document.getElementById("ubicacionActual").innerText=u;
+}
+
+function cargarMaterial(){
+let select=document.getElementById("materialSelect");
+let option=select.options[select.selectedIndex];
+document.getElementById("costoUnitario").value=
+option.getAttribute("data-costo");
+}
+
+function agregarMaterial(){
+let select=document.getElementById("materialSelect");
+let option=select.options[select.selectedIndex];
+
+let nombre=option.getAttribute("data-nombre");
+let costo=parseFloat(option.getAttribute("data-costo"));
+let cantidad=parseFloat(document.getElementById("cantidad").value);
+
+if(!cantidad) return;
+
+let total=costo*cantidad;
+granTotal+=total;
+
+document.getElementById("totalMateriales").innerText=total.toFixed(2);
+document.getElementById("granTotal").innerText=granTotal.toFixed(2);
+
+let li=document.createElement("li");
+li.innerText=nombre+" - "+cantidad;
+document.getElementById("listaMateriales").appendChild(li);
+
+let lista=[...document.querySelectorAll("#listaMateriales li")]
+.map(x=>x.innerText);
+
+localStorage.setItem("materialesGuardados",JSON.stringify(lista));
+localStorage.setItem("granTotal",granTotal);
+}
+
+function eliminarTodo(){
+localStorage.clear();
+location.reload();
+}
+
+function cargarSueldo(){
+let select=document.getElementById("trabajadorSelect");
+let option=select.options[select.selectedIndex];
+let sueldo=option.getAttribute("data-sueldo");
+if(sueldo){
+document.getElementById("nuevoSueldo").value=sueldo;
+}
+}
+</script>
+
+</body>
+</html>

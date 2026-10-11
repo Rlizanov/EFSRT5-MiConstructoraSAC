@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Administración Empleado</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+	body{
+	    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+	    url('https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600');
+	    background-size: cover;
+	    background-position: center;
+	    background-attachment: fixed;
+	}
+
+	.navbar{
+	    background: linear-gradient(90deg,#0d6efd,#084298);
+	    box-shadow:0 4px 15px rgba(0,0,0,0.3);
+	}
+
+	.card{
+	    border-radius:20px;
+	    backdrop-filter: blur(8px);
+	    background:rgba(255,255,255,0.95);
+	    border:none;
+	    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+	}
+
+	h4{
+	    font-weight:600;
+	    color:#0d6efd;
+	    letter-spacing:1px;
+	}
+
+	.form-control{
+	    border-radius:12px;
+	    padding:10px;
+	    border:1px solid #ddd;
+	    transition:0.2s;
+	}
+
+	.form-control:focus{
+	    border-color:#0d6efd;
+	    box-shadow:0 0 0 3px rgba(13,110,253,0.2);
+	}
+
+	.btn-success{
+	    background: linear-gradient(45deg,#198754,#146c43);
+	    border:none;
+	    padding:12px;
+	    font-weight:600;
+	    border-radius:12px;
+	    transition:0.3s;
+	}
+
+	.btn-success:hover{
+	    transform:scale(1.05);
+	}
+
+	.input-premium{
+	    border-radius:14px;
+	    padding:14px;
+	    border:1px solid #e0e0e0;
+	    transition:0.3s;
+	    background:#f8f9fa;
+	}
+
+	.input-premium:focus{
+	    background:white;
+	    border-color:#0d6efd;
+	    box-shadow:0 0 0 4px rgba(13,110,253,0.15);
+	    transform:scale(1.02);
+	}
+
+	.form-label{
+	    margin-bottom:6px;
+	    color:#333;
+	}
+
+	.card{
+	    padding:35px !important;
+	}
+
+	.input-premium{
+	    border-radius:12px;
+	    padding:12px;
+	    border:1px solid #ddd;
+	    background:#f8f9fa;
+	    transition:0.3s;
+	}
+
+	.input-premium:focus{
+	    background:white;
+	    border-color:#0d6efd;
+	    box-shadow:0 0 0 3px rgba(13,110,253,0.15);
+	}
+</style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/empleados">
+		Sistema Web de Gestión de 
+			Empleados – Mi Constructora S.A.C
+	</a>
+
+    <div class="collapse navbar-collapse justify-content-end">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/empleados">Volver</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+
+<div class="row justify-content-center align-items-center" style="min-height:75vh;">
+<div class="col-md-6">
+
+<div class="card shadow p-4">
+
+<h4 class="text-center mb-4">GESTIÓN DE EMPLEADOS</h4>
+
+<form th:action="@{/empleados/guardar}" th:object="${empleado}" method="post">
+
+	<div class="row">
+
+	    <div class="col-md-6 mb-3">
+	        <label class="form-label fw-semibold">Nombres</label>
+	        <input type="text" th:field="*{nomempleado}" class="form-control input-premium" required>
+	    </div>
+
+	    <div class="col-md-6 mb-3">
+	        <label class="form-label fw-semibold">Apellidos</label>
+	        <input type="text" th:field="*{apelempleado}" class="form-control input-premium" required>
+	    </div>
+
+	</div>
+
+	<div class="mb-3">
+	    <label class="form-label fw-semibold">DNI</label>
+	    <input type="text" th:field="*{dniempleado}" class="form-control input-premium" required>
+	</div>
+
+	<div class="mb-3">
+	    <label class="form-label fw-semibold">Fecha Ingreso</label>
+	    <input type="date" th:field="*{fechaingreso}" class="form-control input-premium" required>
+	</div>
+
+	<input type="hidden" th:field="*{idempleado}">
+
+	<div class="d-grid mt-4">
+	    <button class="btn btn-success">Guardar Empleado</button>
+	</div>
+
+</form>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

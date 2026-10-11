@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Sin permiso</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    font-family:'Segoe UI', sans-serif;
+}
+
+.card{
+    background:white;
+    width:450px;
+    padding:40px;
+    border-radius:22px;
+    text-align:center;
+    box-shadow:0 20px 45px rgba(0,0,0,0.35);
+}
+
+.icono{
+    font-size:65px;
+    margin-bottom:15px;
+}
+
+h2{
+    color:#1e3c72;
+    margin-bottom:15px;
+    font-size:28px;
+}
+
+p{
+    color:#555;
+    font-size:16px;
+    margin-bottom:30px;
+}
+
+.btn-volver{
+    display:inline-block;
+    padding:13px 35px;
+    background:linear-gradient(45deg,#0d6efd,#00c6ff);
+    color:white;
+    text-decoration:none;
+    border-radius:14px;
+    font-weight:bold;
+    transition:0.3s;
+    box-shadow:0 8px 18px rgba(0,0,0,0.25);
+}
+
+.btn-volver:hover{
+    transform:scale(1.07);
+    background:linear-gradient(45deg,#084298,#0096c7);
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+    <div class="icono">🚫</div>
+
+    <h2>Acceso denegado</h2>
+
+    <p>No tienes permisos para entrar a esta página.</p>
+
+    <a th:href="@{/empleados}" class="btn-volver">Volver al inicio</a>
+</div>
+
+</body>
+</html>

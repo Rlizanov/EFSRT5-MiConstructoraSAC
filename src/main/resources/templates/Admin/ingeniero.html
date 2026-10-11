@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Ingeniero Civil</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:white;
+}
+
+.navbar{
+    background:linear-gradient(90deg,#0f5132,#198754);
+}
+
+.hero{
+    background: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1600') center/cover;
+    height:220px;
+    border-radius:12px;
+    position:relative;
+    margin-bottom:25px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    border-radius:12px;
+}
+
+.hero-text{
+    position:absolute;
+    color:white;
+    top:50%;
+    left:30px;
+    transform:translateY(-50%);
+    z-index:2;
+}
+
+.info-card{
+    border:none;
+    border-left:6px solid #198754;
+    background:#f8fffb;
+    transition:0.3s;
+}
+
+.info-card:hover{
+    transform:translateY(-4px);
+}
+
+.table thead th{
+    background:#198754;
+    color:white;
+    padding:16px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    border-right:2px solid rgba(255,255,255,0.2);
+}
+
+.table thead th:last-child{
+    border-right:none;
+}
+
+.table thead th:first-child{
+    background:#146c43;
+    color:#fff;
+}
+
+.table td{
+    padding:14px;
+    vertical-align:middle;
+}
+
+.badge-especialidad{
+    background:#198754;
+    font-weight:500;
+}
+
+.dropdown-menu{
+    background:white !important;
+    border:none !important;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
+    --bs-dropdown-link-hover-bg: #198754;
+    --bs-dropdown-link-hover-color: #fff;
+    --bs-dropdown-link-active-bg: #198754;
+    --bs-dropdown-link-active-color: #fff;
+}
+
+.dropdown-item{
+    color:#333 !important;
+    border-radius:8px;
+    transition:0.2s;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+<div class="container-fluid">
+
+<a class="navbar-brand" href="/empleados">
+Sistema Web de Gestión de 
+Empleados – Mi Constructora S.A.C
+</a>
+
+<button class="navbar-toggler" type="button"
+data-bs-toggle="collapse"
+data-bs-target="#navbarNav">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+<ul class="navbar-nav">
+
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+Trabajos
+</a>
+
+<ul class="dropdown-menu dropdown-menu-end">
+<li><a class="dropdown-item" href="/empleados">Empleado</a></li>
+<li><a class="dropdown-item" href="/analistas">Analista Programador</a></li>
+<li><a class="dropdown-item active" href="/ingenieros">Ingeniero Civil</a></li>
+<li><a class="dropdown-item" href="/funcionales">Analista Funcional</a></li>
+<li><a class="dropdown-item" href="/administrador">Administrador</a></li>
+<li><a class="dropdown-item" href="/jefes">Jefe de Proyectos</a></li>
+</ul>
+</li>
+
+<li class="nav-item">
+<a class="nav-link text-warning" href="/login">Cerrar Sesión</a>
+</li>
+
+</ul>
+</div>
+</div>
+</nav>
+
+<div class="container mt-4">
+
+<div class="hero">
+<div class="hero-text">
+<h2>Gestión de Ingeniería Civil</h2>
+<p>Infraestructura • Construcción • Supervisión Técnica</p>
+</div>
+</div>
+
+<div class="row mb-4">
+
+<div class="col-md-4">
+<div class="card info-card shadow">
+<div class="card-body">
+<h6>Área</h6>
+<h4>Construcción</h4>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card info-card shadow">
+<div class="card-body">
+<h6>Estado</h6>
+<h4>Operativo</h4>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card info-card shadow">
+<div class="card-body">
+<h6>Control</h6>
+<h4>Proyectos activos</h4>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="table-responsive">
+
+<table class="table table-bordered table-hover shadow">
+
+<thead class="text-center">
+<tr>
+<th>ID Empleado</th>
+<th>Especialidad</th>
+<th>Colegiatura</th>
+</tr>
+</thead>
+
+<tbody class="text-center">
+
+<tr th:each="i : ${lista}">
+<td th:text="${i.idempleado}"></td>
+<td>
+<span class="badge badge-especialidad"
+th:text="${i.especialidad}">
+</span>
+</td>
+<td th:text="${i.colegiatura}"></td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
