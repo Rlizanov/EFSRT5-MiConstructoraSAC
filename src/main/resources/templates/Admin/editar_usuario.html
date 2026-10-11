@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow" style="max-width: 600px; margin: auto;">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">Editar Acceso</h4>
+        </div>
+        <div class="card-body p-4">
+
+            <form th:action="@{/usuarios/actualizar}" method="post">
+                <!-- ID oculto fundamental para que Spring sepa a quién actualizar -->
+                <input type="hidden" name="idusuario" th:value="${usuario.idusuario}">
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nombre de Usuario:</label>
+                    <input type="text" name="nomusuario" th:value="${usuario.nomusuario}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Correo Electrónico:</label>
+                    <input type="email" name="email" th:value="${usuario.email}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nueva Contraseña (Opcional):</label>
+                    <input type="password" name="password" class="form-control" placeholder="Dejar en blanco para mantener la actual">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Nivel de Acceso (Rol):</label>
+                    <select name="idrol" class="form-select" required>
+                        <!-- Iteramos los roles y marcamos como 'selected' el rol que ya tiene el usuario -->
+                        <option th:each="rol : ${roles}"
+                                th:value="${rol.idrol}"
+                                th:text="${rol.nomrol}"
+                                th:selected="${usuario.roles != null and usuario.roles.contains(rol)}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">Actualizar Usuario</button>
+                    <a href="/usuarios" class="btn btn-outline-secondary">Cancelar</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

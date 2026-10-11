@@ -99,7 +99,8 @@ public class SecurityConfig {
 					"/analistas/**",
 					"/funcionales/**",
 					"/ingenieros/**",
-					"/admin/**"
+					"/admin/**",
+						"/usuarios/**"
 				).hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
 				.anyRequest().authenticated()

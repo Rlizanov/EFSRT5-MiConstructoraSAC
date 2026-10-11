@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrador de Accesos - Mi Constructora S.A.C</title>
+    <!-- Importar Bootstrap (si no lo tienes ya en tu plantilla principal) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<!-- Barra de navegación opcional -->
+<nav class="navbar navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Mi Constructora S.A.C - Panel de Seguridad</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="card shadow" style="max-width: 600px; margin: auto;">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">Crear Nuevo Acceso</h4>
+        </div>
+        <div class="card-body p-4">
+
+            <!-- El formulario apunta al @PostMapping("/usuarios/guardar") del Controlador -->
+            <form th:action="@{/usuarios/guardar}" method="post">
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nombre de Usuario (Login):</label>
+                    <input type="text" name="nomusuario" class="form-control" placeholder="Ej. RMARTINEZ" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Correo Electrónico:</label>
+                    <input type="email" name="email" class="form-control" placeholder="empleado@miconstructora.com" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Contraseña Temporal:</label>
+                    <input type="password" name="password" class="form-control" placeholder="Ingrese contraseña" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Nivel de Acceso (Rol):</label>
+                    <select name="idrol" class="form-select" required>
+                        <option value="">-- Seleccione un rol --</option>
+                        <!-- Thymeleaf llena el select con los roles de la base de datos -->
+                        <option th:each="rol : ${roles}"
+                                th:value="${rol.idrol}"
+                                th:text="${rol.nomrol}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg">Guardar Usuario y Crear Accesos</button>
+                    <a href="/empleados" class="btn btn-outline-secondary">Cancelar</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
